@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { initGrid } from './utils';
 import './App.css';
 
 function Cell(props) {
@@ -13,13 +14,13 @@ class Grid extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      grid: Array(4).fill(Array(4).fill(0)),
+      grid: initGrid(),
     };
   }
 
-  renderCell(x, y) {
+  renderCell(i) {
     return (
-      <Cell value={this.state.grid[x][y]} />
+      <Cell value={this.state.grid[i]} />
     );
   }
 
@@ -27,28 +28,28 @@ class Grid extends Component {
     return (
       <div className="grid">
         <div className="grid-row">
-          {this.renderCell(0, 0)}
-          {this.renderCell(0, 1)}
-          {this.renderCell(0, 2)}
-          {this.renderCell(0, 3)}
+          {this.renderCell(0)}
+          {this.renderCell(1)}
+          {this.renderCell(2)}
+          {this.renderCell(3)}
         </div>
         <div className="grid-row">
-          {this.renderCell(1, 0)}
-          {this.renderCell(1, 1)}
-          {this.renderCell(1, 2)}
-          {this.renderCell(1, 3)}
+          {this.renderCell(4)}
+          {this.renderCell(5)}
+          {this.renderCell(6)}
+          {this.renderCell(7)}
         </div>
         <div className="grid-row">
-          {this.renderCell(2, 0)}
-          {this.renderCell(2, 1)}
-          {this.renderCell(2, 2)}
-          {this.renderCell(2, 3)}
+          {this.renderCell(8)}
+          {this.renderCell(9)}
+          {this.renderCell(10)}
+          {this.renderCell(11)}
         </div>
         <div className="grid-row">
-          {this.renderCell(3, 0)}
-          {this.renderCell(3, 1)}
-          {this.renderCell(3, 2)}
-          {this.renderCell(3, 3)}
+          {this.renderCell(12)}
+          {this.renderCell(13)}
+          {this.renderCell(14)}
+          {this.renderCell(15)}
         </div>
       </div>
     );
