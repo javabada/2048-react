@@ -24,6 +24,18 @@ class Grid extends Component {
     );
   }
 
+  componentDidMount() {
+    window.addEventListener('keydown', () => this.handleKeyDown());
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', () => this.handleKeyDown());
+  }
+
+  handleKeyDown() {
+    console.log('test');
+  }
+
   render() {
     return (
       <div className="grid">
