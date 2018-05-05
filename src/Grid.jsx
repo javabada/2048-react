@@ -1,12 +1,12 @@
 import React from 'react';
 import './Grid.css';
 import Cell from './Cell';
-import addToGrid from './utils';
+import addToGrid from './GridUtils';
 
 export default class Grid extends React.Component {
   constructor(props) {
     super(props);
-    // Create starting grid.
+    // Game starts with 2 cells filled.
     let grid = Array(16).fill(null);
     grid = addToGrid(grid);
     grid = addToGrid(grid);
@@ -27,9 +27,7 @@ export default class Grid extends React.Component {
   }
 
   renderCell(i) {
-    return (
-      <Cell value={this.state.grid[i]} />
-    );
+    return <Cell value={this.state.grid[i]} />;
   }
 
   render() {

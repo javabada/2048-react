@@ -5,8 +5,8 @@ export default function addToGrid(grid) {
       emptyCells.push(i);
     }
   }
-  const randCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+  const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
   const newGrid = grid.slice();
-  newGrid[randCell] = Math.random() < 0.9 ? 2 : 4;
+  newGrid[randomCell] = Math.random() < 0.9 ? 2 : 4;
   return newGrid;
 }
