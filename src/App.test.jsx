@@ -1,9 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import App from './App';
+import Grid from './Grid';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe('<App />', () => {
+  it('renders a <Grid /> component', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(Grid).length).toBe(1);
+  });
 });
