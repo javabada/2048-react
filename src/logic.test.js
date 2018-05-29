@@ -1,13 +1,13 @@
 import { add, left } from './logic';
 
-describe('add tile', () => {
+describe('add new tile', () => {
   it('adds a new tile to the grid', () => {
     const tiles = [];
     const result = add(tiles);
     expect(result.length).toBe(1);
   });
 
-  it('adds the new tile to an empty cell', () => {
+  it('adds the new tile to an empty cell in the grid', () => {
     const tiles = [
       { x: 0, y: 0, value: 2 },
       { x: 1, y: 0, value: 2 },
@@ -30,28 +30,47 @@ describe('add tile', () => {
   });
 });
 
-describe('move left', () => {
-  it('moves a tile to the edge', () => {
+describe('move tiles left', () => {
+  it('moves a tile to the left side', () => {
     const tiles = [
       { x: 3, y: 0, value: 2 },
     ];
     const expected = [
-      { x: 0, y: 0, value: 2 },
+      {
+        x: 0,
+        y: 0,
+        value: 2,
+        previous: [
+          { x: 3, y: 0, value: 2 },
+        ],
+      },
     ];
     const result = left(tiles);
     expect(result).toEqual(expected);
   });
 
-  it('moves multiple tiles to the edge', () => {
+  it('moves tiles on different rows all to the left side', () => {
     const tiles = [
       { x: 3, y: 0, value: 2 },
-      { x: 2, y: 1, value: 2 },
       { x: 1, y: 2, value: 2 },
     ];
     const expected = [
-      { x: 0, y: 0, value: 2 },
-      { x: 0, y: 1, value: 2 },
-      { x: 0, y: 2, value: 2 },
+      {
+        x: 0,
+        y: 0,
+        value: 2,
+        previous: [
+          { x: 3, y: 0, value: 2 },
+        ],
+      },
+      {
+        x: 0,
+        y: 2,
+        value: 2,
+        previous: [
+          { x: 1, y: 2, value: 2 },
+        ],
+      },
     ];
     const result = left(tiles);
     expect(result).toEqual(expect.arrayContaining(expected));
@@ -64,8 +83,22 @@ describe('move left', () => {
       { x: 3, y: 0, value: 4 },
     ];
     const expected = [
-      { x: 0, y: 0, value: 2 },
-      { x: 1, y: 0, value: 4 },
+      {
+        x: 0,
+        y: 0,
+        value: 2,
+        previous: [
+          { x: 1, y: 0, value: 2 },
+        ],
+      },
+      {
+        x: 1,
+        y: 0,
+        value: 4,
+        previous: [
+          { x: 3, y: 0, value: 4 },
+        ],
+      },
     ];
     const result = left(tiles);
     expect(result).toEqual(expect.arrayContaining(expected));
@@ -78,7 +111,15 @@ describe('move left', () => {
       { x: 2, y: 0, value: 2 },
     ];
     const expected = [
-      { x: 0, y: 0, value: 4 },
+      {
+        x: 0,
+        y: 0,
+        value: 4,
+        previous: [
+          { x: 0, y: 0, value: 2 },
+          { x: 2, y: 0, value: 2 },
+        ],
+      },
     ];
     const result = left(tiles);
     expect(result).toEqual(expected);
@@ -91,56 +132,23 @@ describe('move left', () => {
       { x: 3, y: 0, value: 4 },
     ];
     const expected = [
-      { x: 0, y: 0, value: 4 },
-      { x: 1, y: 0, value: 4 },
-    ];
-    const result = left(tiles);
-    expect(result).toEqual(expect.arrayContaining(expected));
-    expect(result.length).toBe(expected.length);
-  });
-
-  it('handles a row with the same valued tiles correctly', () => {
-    const tiles = [
-      { x: 0, y: 0, value: 2 },
-      { x: 1, y: 0, value: 2 },
-      { x: 2, y: 0, value: 2 },
-      { x: 3, y: 0, value: 2 },
-    ];
-    const expected = [
-      { x: 0, y: 0, value: 4 },
-      { x: 1, y: 0, value: 4 },
-    ];
-    const result = left(tiles);
-    expect(result).toEqual(expect.arrayContaining(expected));
-    expect(result.length).toBe(expected.length);
-  });
-
-  it('handles multiple rows correctly', () => {
-    const tiles = [
-      { x: 0, y: 0, value: 4 },
-      { x: 1, y: 0, value: 4 },
-      { x: 2, y: 0, value: 2 },
-      { x: 3, y: 0, value: 2 },
-      { x: 0, y: 1, value: 4 },
-      { x: 1, y: 1, value: 2 },
-      { x: 2, y: 1, value: 8 },
-      { x: 3, y: 1, value: 2 },
-      { x: 1, y: 2, value: 2 },
-      { x: 2, y: 2, value: 4 },
-      { x: 3, y: 2, value: 4 },
-      { x: 2, y: 3, value: 4 },
-      { x: 3, y: 3, value: 4 },
-    ];
-    const expected = [
-      { x: 0, y: 0, value: 8 },
-      { x: 1, y: 0, value: 4 },
-      { x: 0, y: 1, value: 4 },
-      { x: 1, y: 1, value: 2 },
-      { x: 2, y: 1, value: 8 },
-      { x: 3, y: 1, value: 2 },
-      { x: 0, y: 2, value: 2 },
-      { x: 1, y: 2, value: 8 },
-      { x: 0, y: 3, value: 8 },
+      {
+        x: 0,
+        y: 0,
+        value: 4,
+        previous: [
+          { x: 0, y: 0, value: 2 },
+          { x: 2, y: 0, value: 2 },
+        ],
+      },
+      {
+        x: 1,
+        y: 0,
+        value: 4,
+        previous: [
+          { x: 3, y: 0, value: 4 },
+        ],
+      },
     ];
     const result = left(tiles);
     expect(result).toEqual(expect.arrayContaining(expected));
