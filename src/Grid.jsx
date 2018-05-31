@@ -3,7 +3,7 @@ import './Grid.css';
 import Cell from './Cell';
 import { add } from './logic';
 
-export default class Grid extends React.Component {
+const Grid = class extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -61,4 +61,6 @@ export default class Grid extends React.Component {
       </div>
     );
   }
-}
+};
+
+export default Grid;

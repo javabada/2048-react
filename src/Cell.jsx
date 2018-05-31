@@ -2,14 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Cell.css';
 
-export default function Cell(props) {
-  return <div className="cell">{props.value}</div>;
-}
-
-Cell.propTypes = {
+const propTypes = {
   value: PropTypes.number,
 };
 
-Cell.defaultProps = {
+const defaultProps = {
   value: null,
 };
+
+const Cell = ({ value }) => (
+  <div className="cell">
+    {value}
+  </div>
+);
+
+Cell.propTypes = propTypes;
+Cell.defaultProps = defaultProps;
+
+export default Cell;

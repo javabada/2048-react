@@ -1,4 +1,4 @@
-export const add = (tiles) => {
+const add = (tiles) => {
   const emptyCells = [];
   for (let x = 0; x < 4; x += 1) {
     for (let y = 0; y < 4; y += 1) {
@@ -14,7 +14,7 @@ export const add = (tiles) => {
   return after;
 };
 
-export const left = (tiles) => {
+const left = (tiles) => {
   const before = tiles.slice();
   // sort so that tiles are processed in the correct order
   before.sort((a, b) => (a.y === b.y ? a.x - b.x : a.y - b.y));
@@ -46,3 +46,5 @@ export const left = (tiles) => {
 
   return after;
 };
+
+export { add, left };
