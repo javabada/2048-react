@@ -1,4 +1,4 @@
-import { add, left } from './logic';
+import { add, move, LEFT, RIGHT, UP, DOWN } from './logic';
 
 describe('add new tile', () => {
   it('adds a new tile to the grid', () => {
@@ -45,7 +45,7 @@ describe('move tiles left', () => {
         ],
       },
     ];
-    const result = left(tiles);
+    const result = move(tiles, LEFT);
     expect(result).toEqual(expected);
   });
 
@@ -72,7 +72,7 @@ describe('move tiles left', () => {
         ],
       },
     ];
-    const result = left(tiles);
+    const result = move(tiles, LEFT);
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });
@@ -100,7 +100,7 @@ describe('move tiles left', () => {
         ],
       },
     ];
-    const result = left(tiles);
+    const result = move(tiles, LEFT);
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });
@@ -121,7 +121,7 @@ describe('move tiles left', () => {
         ],
       },
     ];
-    const result = left(tiles);
+    const result = move(tiles, LEFT);
     expect(result).toEqual(expected);
   });
 
@@ -150,7 +150,130 @@ describe('move tiles left', () => {
         ],
       },
     ];
-    const result = left(tiles);
+    const result = move(tiles, LEFT);
+    expect(result).toEqual(expect.arrayContaining(expected));
+    expect(result.length).toBe(expected.length);
+  });
+});
+
+describe('move tiles right', () => {
+  it('moves tiles right correctly', () => {
+    const tiles = [
+      { x: 0, y: 0, value: 2 },
+      { x: 2, y: 0, value: 2 },
+      { x: 1, y: 1, value: 4 },
+      { x: 3, y: 1, value: 2 },
+    ];
+    const expected = [
+      {
+        x: 3,
+        y: 0,
+        value: 4,
+        previous: [
+          { x: 2, y: 0, value: 2 },
+          { x: 0, y: 0, value: 2 },
+        ],
+      },
+      {
+        x: 3,
+        y: 1,
+        value: 2,
+        previous: [
+          { x: 3, y: 1, value: 2 },
+        ],
+      },
+      {
+        x: 2,
+        y: 1,
+        value: 4,
+        previous: [
+          { x: 1, y: 1, value: 4 },
+        ],
+      },
+    ];
+    const result = move(tiles, RIGHT);
+    expect(result).toEqual(expect.arrayContaining(expected));
+    expect(result.length).toBe(expected.length);
+  });
+});
+
+describe('move tiles up', () => {
+  it('moves tiles up correctly', () => {
+    const tiles = [
+      { x: 0, y: 0, value: 2 },
+      { x: 1, y: 1, value: 4 },
+      { x: 1, y: 2, value: 4 },
+      { x: 3, y: 2, value: 2 },
+    ];
+    const expected = [
+      {
+        x: 0,
+        y: 0,
+        value: 2,
+        previous: [
+          { x: 0, y: 0, value: 2 },
+        ],
+      },
+      {
+        x: 1,
+        y: 0,
+        value: 8,
+        previous: [
+          { x: 1, y: 1, value: 4 },
+          { x: 1, y: 2, value: 4 },
+        ],
+      },
+      {
+        x: 3,
+        y: 0,
+        value: 2,
+        previous: [
+          { x: 3, y: 2, value: 2 },
+        ],
+      },
+    ];
+    const result = move(tiles, UP);
+    expect(result).toEqual(expect.arrayContaining(expected));
+    expect(result.length).toBe(expected.length);
+  });
+});
+
+describe('move tiles down', () => {
+  it('moves tiles down correctly', () => {
+    const tiles = [
+      { x: 1, y: 0, value: 2 },
+      { x: 2, y: 0, value: 4 },
+      { x: 2, y: 2, value: 2 },
+      { x: 2, y: 3, value: 2 },
+    ];
+    const expected = [
+      {
+        x: 1,
+        y: 3,
+        value: 2,
+        previous: [
+          { x: 1, y: 0, value: 2 },
+        ],
+      },
+      {
+        x: 2,
+        y: 2,
+        value: 4,
+        previous: [
+          { x: 2, y: 0, value: 4 },
+        ],
+      },
+      {
+        x: 2,
+        y: 3,
+        value: 4,
+        previous: [
+          { x: 2, y: 3, value: 2 },
+          { x: 2, y: 2, value: 2 },
+        ],
+      },
+    ];
+    const result = move(tiles, DOWN);
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });
