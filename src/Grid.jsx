@@ -1,7 +1,8 @@
 import React from 'react';
 import './Grid.css';
 import Cell from './Cell';
-import { add } from './logic';
+import add from './logic/add';
+import { move, LEFT, RIGHT, UP, DOWN } from './logic/move';
 
 const Grid = class extends React.Component {
   constructor(props) {
@@ -23,7 +24,27 @@ const Grid = class extends React.Component {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleKeyDown() {
+  handleKeyDown(e) {
+    let { tiles } = this.state;
+    switch (e.key) {
+      case 'ArrowLeft':
+        tiles = move(tiles, LEFT);
+        break;
+      case 'ArrowRight':
+        tiles = move(tiles, RIGHT);
+        break;
+      case 'ArrowUp':
+        tiles = move(tiles, UP);
+        break;
+      case 'ArrowDown':
+        tiles = move(tiles, DOWN);
+        break;
+      default:
+        return;
+    }
+    // TODO: don't add new tile if tiles didn't move
+    tiles = add(tiles);
+    this.setState({ tiles });
   }
 
   renderCell(x, y) {
