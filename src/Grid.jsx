@@ -3,6 +3,7 @@ import './Grid.css';
 import Cell from './Cell';
 import add from './logic/add';
 import { move, LEFT, RIGHT, UP, DOWN } from './logic/move';
+import didMove from './logic/didMove';
 
 const Grid = class extends React.Component {
   constructor(props) {
@@ -42,8 +43,9 @@ const Grid = class extends React.Component {
       default:
         return;
     }
-    // TODO: don't add new tile if tiles didn't move
-    tiles = add(tiles);
+    if (didMove(tiles)) {
+      tiles = add(tiles);
+    }
     this.setState({ tiles });
   }
 
