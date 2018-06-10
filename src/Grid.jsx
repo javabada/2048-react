@@ -43,15 +43,23 @@ const Grid = class extends React.Component {
   handleKeyDown(e) {
     switch (e.key) {
       case 'ArrowLeft':
+      case 'a':
+      case 'h':
         this.moveTiles(LEFT);
         break;
       case 'ArrowRight':
+      case 'd':
+      case 'l':
         this.moveTiles(RIGHT);
         break;
       case 'ArrowUp':
+      case 'w':
+      case 'k':
         this.moveTiles(UP);
         break;
       case 'ArrowDown':
+      case 's':
+      case 'j':
         this.moveTiles(DOWN);
         break;
       default:
