@@ -8,41 +8,83 @@ import didMove from './logic/didMove';
 const Grid = class extends React.Component {
   constructor(props) {
     super(props);
+    /**
+     * Create a ref to the grid for adding native event listeners, as React's
+     * SyntheticEvent is attached at the root, and browsers set passive to
+     * touch events at the top level for optimization.
+     * Further reading:
+     * https://developers.google.com/web/updates/2017/01/scrolling-intervention
+     */
+    this.ref = React.createRef();
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
     let tiles = [];
     tiles = add(tiles);
     tiles = add(tiles);
     this.state = {
       tiles,
+      touchStartPos: null,
     };
   }
 
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
+    this.ref.current.addEventListener('touchstart', this.handleTouchStart);
+    this.ref.current.addEventListener('touchend', this.handleTouchEnd);
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
+    this.ref.current.removeEventListener('touchstart', this.handleTouchStart);
+    this.ref.current.removeEventListener('touchend', this.handleTouchEnd);
   }
 
   handleKeyDown(e) {
-    let { tiles } = this.state;
     switch (e.key) {
       case 'ArrowLeft':
-        tiles = move(tiles, LEFT);
+        this.moveTiles(LEFT);
         break;
       case 'ArrowRight':
-        tiles = move(tiles, RIGHT);
+        this.moveTiles(RIGHT);
         break;
       case 'ArrowUp':
-        tiles = move(tiles, UP);
+        this.moveTiles(UP);
         break;
       case 'ArrowDown':
-        tiles = move(tiles, DOWN);
+        this.moveTiles(DOWN);
         break;
       default:
-        return;
     }
+  }
+
+  handleTouchStart(e) {
+    e.preventDefault();
+    this.setState({
+      touchStartPos: { x: e.touches[0].clientX, y: e.touches[0].clientY },
+    });
+  }
+
+  handleTouchEnd(e) {
+    const movement = {
+      x: e.changedTouches[0].clientX - this.state.touchStartPos.x,
+      y: e.changedTouches[0].clientY - this.state.touchStartPos.y,
+    };
+    this.setState({ touchStartPos: null });
+    let direction;
+    if (Math.abs(movement.x) > Math.abs(movement.y)) {
+      direction = movement.x > 0 ? RIGHT : LEFT;
+    } else if (Math.abs(movement.y) > Math.abs(movement.x)) {
+      direction = movement.y > 0 ? DOWN : UP;
+    }
+    if (direction) {
+      this.moveTiles(direction);
+    }
+  }
+
+  moveTiles(direction) {
+    let { tiles } = this.state;
+    tiles = move(tiles, direction);
     if (didMove(tiles)) {
       tiles = add(tiles);
     }
@@ -56,7 +98,7 @@ const Grid = class extends React.Component {
 
   render() {
     return (
-      <div className="grid">
+      <div ref={this.ref} className="grid">
         <div>
           {this.renderCell(0, 0)}
           {this.renderCell(1, 0)}
