@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Grid from './Grid';
 import Cell from './Cell';
+import { LEFT, DOWN } from './logic/move';
 
 describe('<Grid />', () => {
   it('renders 16 <Cell /> components', () => {
@@ -42,6 +43,7 @@ describe('event listener', () => {
     const e = new Event('keydown');
     window.dispatchEvent(e);
     expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
     wrapper.unmount();
   });
 
@@ -51,6 +53,7 @@ describe('event listener', () => {
     const e = new Event('touchstart');
     wrapper.instance().ref.current.dispatchEvent(e);
     expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
     wrapper.unmount();
   });
 
@@ -60,6 +63,54 @@ describe('event listener', () => {
     const e = new Event('touchend');
     wrapper.instance().ref.current.dispatchEvent(e);
     expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+    wrapper.unmount();
+  });
+});
+
+describe('touch swipe direction', () => {
+  it('should be left', () => {
+    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
+    const wrapper = mount(<Grid />);
+    wrapper.setState({
+      touchStartPos: { x: 50, y: 50 },
+    });
+    const mockEvent = {
+      changedTouches: [{ clientX: 20, clientY: 60 }],
+    };
+    wrapper.instance().handleTouchEnd(mockEvent);
+    expect(spy).toHaveBeenCalledWith(LEFT);
+    spy.mockClear();
+    wrapper.unmount();
+  });
+
+  it('should be down', () => {
+    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
+    const wrapper = mount(<Grid />);
+    wrapper.setState({
+      touchStartPos: { x: 50, y: 50 },
+    });
+    const mockEvent = {
+      changedTouches: [{ clientX: 60, clientY: 70 }],
+    };
+    wrapper.instance().handleTouchEnd(mockEvent);
+    expect(spy).toHaveBeenCalledWith(DOWN);
+    spy.mockClear();
+    wrapper.unmount();
+  });
+
+  it('should not move', () => {
+    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
+    const wrapper = mount(<Grid />);
+    wrapper.setState({
+      touchStartPos: { x: 50, y: 50 },
+    });
+    const mockEvent = {
+      changedTouches: [{ clientX: 50, clientY: 50 }],
+    };
+    wrapper.instance().handleTouchEnd(mockEvent);
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockClear();
     wrapper.unmount();
   });
 });
