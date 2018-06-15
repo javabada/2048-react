@@ -20,9 +20,7 @@ describe('<Grid />', () => {
   it('passes a tile\'s value to the cell', () => {
     const wrapper = mount(<Grid />);
     wrapper.setState({
-      tiles: [
-        { x: 0, y: 0, value: 8 },
-      ],
+      tiles: [{ x: 0, y: 0, value: 8 }],
     });
     expect(wrapper.find(Cell).first().prop('value')).toBe(8);
     wrapper.unmount();
@@ -110,7 +108,7 @@ describe('touch event handling', () => {
     wrapper.unmount();
   });
 
-  it('should not move', () => {
+  it('does not move', () => {
     const spy = jest.spyOn(Grid.prototype, 'moveTiles');
     const wrapper = mount(<Grid />);
     wrapper.setState({
@@ -122,6 +120,28 @@ describe('touch event handling', () => {
     wrapper.instance().handleTouchEnd(mockEvent);
     expect(spy).not.toHaveBeenCalled();
     spy.mockClear();
+    wrapper.unmount();
+  });
+});
+
+describe('moveTiles()', () => {
+  it('moves and adds a new tile', () => {
+    const wrapper = mount(<Grid />);
+    wrapper.setState({
+      tiles: [{ x: 3, y: 0, value: 4 }],
+    });
+    wrapper.instance().moveTiles(LEFT);
+    expect(wrapper.state('tiles').length).toBe(2);
+    wrapper.unmount();
+  });
+
+  it('does not move nor add a new tile', () => {
+    const wrapper = mount(<Grid />);
+    wrapper.setState({
+      tiles: [{ x: 0, y: 0, value: 4 }],
+    });
+    wrapper.instance().moveTiles(LEFT);
+    expect(wrapper.state('tiles').length).toBe(1);
     wrapper.unmount();
   });
 });
