@@ -2,17 +2,16 @@ import React from 'react';
 import './Grid.css';
 import Cell from './Cell';
 import add from './logic/add';
-import { move, LEFT, RIGHT, UP, DOWN } from './logic/move';
 import didMove from './logic/didMove';
+import { move, LEFT, RIGHT, UP, DOWN } from './logic/move';
 
 const Grid = class extends React.Component {
   constructor(props) {
     super(props);
     /**
-     * Create a ref to the grid for adding native event listeners, as React's
-     * SyntheticEvent is attached at the root, and browsers set passive to
-     * touch events at the top level for optimization.
-     * Further reading:
+     * Create a ref to grid to add native touch event listeners. This is needed
+     * as Event.preventDefault() does not work with React's SyntheticEvent for
+     * touch events. Further information on why can be found here:
      * https://developers.google.com/web/updates/2017/01/scrolling-intervention
      */
     this.ref = React.createRef();
