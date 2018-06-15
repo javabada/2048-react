@@ -68,8 +68,19 @@ describe('event listener', () => {
   });
 });
 
-describe('touch swipe direction', () => {
-  it('should be left', () => {
+describe('touch event handling', () => {
+  it('stores touchstart position in state', () => {
+    const wrapper = mount(<Grid />);
+    const mockEvent = {
+      touches: [{ clientX: 50, clientY: 50 }],
+      preventDefault: () => {},
+    };
+    wrapper.instance().handleTouchStart(mockEvent);
+    expect(wrapper.state('touchStartPos')).toEqual({ x: 50, y: 50 });
+    wrapper.unmount();
+  });
+
+  it('resolves direction to left', () => {
     const spy = jest.spyOn(Grid.prototype, 'moveTiles');
     const wrapper = mount(<Grid />);
     wrapper.setState({
@@ -84,7 +95,7 @@ describe('touch swipe direction', () => {
     wrapper.unmount();
   });
 
-  it('should be down', () => {
+  it('resolves direction to down', () => {
     const spy = jest.spyOn(Grid.prototype, 'moveTiles');
     const wrapper = mount(<Grid />);
     wrapper.setState({
