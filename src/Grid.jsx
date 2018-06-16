@@ -106,30 +106,22 @@ const Grid = class extends React.Component {
   render() {
     return (
       <div ref={this.ref} className="grid">
-        <div>
-          {this.renderCell(0, 0)}
-          {this.renderCell(1, 0)}
-          {this.renderCell(2, 0)}
-          {this.renderCell(3, 0)}
-        </div>
-        <div>
-          {this.renderCell(0, 1)}
-          {this.renderCell(1, 1)}
-          {this.renderCell(2, 1)}
-          {this.renderCell(3, 1)}
-        </div>
-        <div>
-          {this.renderCell(0, 2)}
-          {this.renderCell(1, 2)}
-          {this.renderCell(2, 2)}
-          {this.renderCell(3, 2)}
-        </div>
-        <div>
-          {this.renderCell(0, 3)}
-          {this.renderCell(1, 3)}
-          {this.renderCell(2, 3)}
-          {this.renderCell(3, 3)}
-        </div>
+        {this.renderCell(0, 0)}
+        {this.renderCell(1, 0)}
+        {this.renderCell(2, 0)}
+        {this.renderCell(3, 0)}
+        {this.renderCell(0, 1)}
+        {this.renderCell(1, 1)}
+        {this.renderCell(2, 1)}
+        {this.renderCell(3, 1)}
+        {this.renderCell(0, 2)}
+        {this.renderCell(1, 2)}
+        {this.renderCell(2, 2)}
+        {this.renderCell(3, 2)}
+        {this.renderCell(0, 3)}
+        {this.renderCell(1, 3)}
+        {this.renderCell(2, 3)}
+        {this.renderCell(3, 3)}
       </div>
     );
   }

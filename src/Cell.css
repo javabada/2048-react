@@ -1,11 +1,9 @@
 .cell {
-  border: 1px solid;
-  float: left;
-  font-size: 24px;
-  height: 80px;
-  line-height: 80px;
-  margin-bottom: -1px;
-  margin-right: -1px;
-  text-align: center;
-  width: 80px;
+  border-radius: .25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  color: #555;
+  background-color: #bbb;
 }
