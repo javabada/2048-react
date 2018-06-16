@@ -11,7 +11,7 @@ const defaultProps = {
 };
 
 const Cell = ({ value }) => (
-  <div className="cell">
+  <div className={value ? `cell value-${value}` : 'cell'}>
     {value}
   </div>
 );

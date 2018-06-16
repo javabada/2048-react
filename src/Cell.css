@@ -4,6 +4,60 @@
   justify-content: center;
   align-items: center;
   font-size: 4rem;
-  color: #555;
+  color: #666;
   background-color: #bbb;
+}
+
+.value-2 {
+  background-color: #fff;
+}
+
+.value-4 {
+  background-color: #fff6bd;
+}
+
+.value-8 {
+  background-color: #bbf8c1;
+}
+
+.value-16 {
+  background-color: #b5dfff;
+}
+
+.value-32 {
+  background-color: #ffc6e7;
+}
+
+.value-64 {
+  background-color: #ff9393;
+}
+
+.value-128 {
+  font-size: 3.5rem;
+  color: #fff;
+  background-color: #ff5e5e;
+}
+
+.value-256 {
+  font-size: 3.5rem;
+  color: #fff;
+  background-color: #ff54df;
+}
+
+.value-512 {
+  font-size: 3.5rem;
+  color: #fff;
+  background-color: #4fb2ff;
+}
+
+.value-1024 {
+  font-size: 2.75rem;
+  color: #fff;
+  background-color: #55d662;
+}
+
+.value-2048 {
+  font-size: 2.75rem;
+  color: #fff;
+  background-color: #ffc90a;
 }
