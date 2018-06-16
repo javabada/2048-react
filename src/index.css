@@ -3,3 +3,9 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+@media (max-width: 575.98px) {
+  html {
+    font-size: 8px;
+  }
+}
