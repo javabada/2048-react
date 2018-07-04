@@ -1,13 +1,13 @@
 import add from './add';
 
-describe('add new tile', () => {
-  it('adds a new tile to the grid', () => {
+describe('add', () => {
+  it('adds a new tile', () => {
     const tiles = [];
     const result = add(tiles);
     expect(result.length).toBe(1);
   });
 
-  it('adds the new tile to an empty cell in the grid', () => {
+  it('adds to an empty cell', () => {
     const tiles = [
       { x: 0, y: 0, value: 2 },
       { x: 1, y: 0, value: 2 },

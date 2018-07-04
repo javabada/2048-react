@@ -9,9 +9,7 @@ const add = (tiles) => {
   }
   const cell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
   const value = Math.random() > 0.9 ? 4 : 2;
-  const after = tiles.slice();
-  after.push({ ...cell, value });
-  return after;
+  return [...tiles, { ...cell, value }];
 };
 
 export default add;
