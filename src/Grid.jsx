@@ -2,8 +2,8 @@ import React from 'react';
 import './Grid.css';
 import Cell from './Cell';
 import add from './logic/add';
+import move from './logic/move';
 import didMove from './logic/didMove';
-import { move, LEFT, RIGHT, UP, DOWN } from './logic/move';
 
 const Grid = class extends React.Component {
   constructor(props) {
@@ -44,22 +44,22 @@ const Grid = class extends React.Component {
       case 'ArrowLeft':
       case 'a':
       case 'h':
-        this.moveTiles(LEFT);
+        this.moveTiles('LEFT');
         break;
       case 'ArrowRight':
       case 'd':
       case 'l':
-        this.moveTiles(RIGHT);
+        this.moveTiles('RIGHT');
         break;
       case 'ArrowUp':
       case 'w':
       case 'k':
-        this.moveTiles(UP);
+        this.moveTiles('UP');
         break;
       case 'ArrowDown':
       case 's':
       case 'j':
-        this.moveTiles(DOWN);
+        this.moveTiles('DOWN');
         break;
       default:
     }
@@ -80,9 +80,9 @@ const Grid = class extends React.Component {
     this.setState({ touchStartPos: null });
     let direction;
     if (Math.abs(movement.x) > Math.abs(movement.y)) {
-      direction = movement.x > 0 ? RIGHT : LEFT;
+      direction = movement.x > 0 ? 'RIGHT' : 'LEFT';
     } else if (Math.abs(movement.y) > Math.abs(movement.x)) {
-      direction = movement.y > 0 ? DOWN : UP;
+      direction = movement.y > 0 ? 'DOWN' : 'UP';
     }
     if (direction) {
       this.moveTiles(direction);

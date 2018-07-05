@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Grid from './Grid';
 import Cell from './Cell';
-import { LEFT, DOWN } from './logic/move';
 
 describe('<Grid />', () => {
   it('renders 16 <Cell /> components', () => {
@@ -88,7 +87,7 @@ describe('touch event handling', () => {
       changedTouches: [{ clientX: 20, clientY: 60 }],
     };
     wrapper.instance().handleTouchEnd(mockEvent);
-    expect(spy).toHaveBeenCalledWith(LEFT);
+    expect(spy).toHaveBeenCalledWith('LEFT');
     spy.mockClear();
     wrapper.unmount();
   });
@@ -103,7 +102,7 @@ describe('touch event handling', () => {
       changedTouches: [{ clientX: 60, clientY: 70 }],
     };
     wrapper.instance().handleTouchEnd(mockEvent);
-    expect(spy).toHaveBeenCalledWith(DOWN);
+    expect(spy).toHaveBeenCalledWith('DOWN');
     spy.mockClear();
     wrapper.unmount();
   });
@@ -130,7 +129,7 @@ describe('moveTiles()', () => {
     wrapper.setState({
       tiles: [{ x: 3, y: 0, value: 4 }],
     });
-    wrapper.instance().moveTiles(LEFT);
+    wrapper.instance().moveTiles('LEFT');
     expect(wrapper.state('tiles').length).toBe(2);
     wrapper.unmount();
   });
@@ -140,7 +139,7 @@ describe('moveTiles()', () => {
     wrapper.setState({
       tiles: [{ x: 0, y: 0, value: 4 }],
     });
-    wrapper.instance().moveTiles(LEFT);
+    wrapper.instance().moveTiles('LEFT');
     expect(wrapper.state('tiles').length).toBe(1);
     wrapper.unmount();
   });

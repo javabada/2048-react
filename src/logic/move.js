@@ -1,57 +1,48 @@
-const LEFT = 'LEFT';
-const RIGHT = 'RIGHT';
-const UP = 'UP';
-const DOWN = 'DOWN';
-
-const reduce = (tiles, vertical, reverse) => {
-  const mainAxis = vertical ? 'y' : 'x';
-  const crossAxis = vertical ? 'x' : 'y';
-
-  const reduced = [];
-  tiles.forEach((tile) => {
-    const { x, y, value } = tile;
-    const prevTile = reduced[reduced.length - 1];
-    if (prevTile && prevTile.value === value && prevTile.previous.length < 2) {
-      prevTile.value *= 2;
-      prevTile.previous.push({ x, y, value });
-    } else {
-      reduced.push({
-        [mainAxis]: reverse ? 3 - reduced.length : reduced.length,
-        [crossAxis]: vertical ? x : y,
-        value,
-        previous: [{ x, y, value }],
-      });
-    }
-  });
-  return reduced;
-};
-
 const move = (tiles, direction) => {
-  const vertical = direction === UP || direction === DOWN;
-  const reverse = direction === RIGHT || direction === DOWN;
-  const mainAxis = vertical ? 'y' : 'x';
-  const crossAxis = vertical ? 'x' : 'y';
+  const mainAxis = direction === 'UP' || direction === 'DOWN' ? 'y' : 'x';
+  const crossAxis = mainAxis === 'x' ? 'y' : 'x';
+  const isReverse = direction === 'RIGHT' || direction === 'DOWN';
 
-  // group tiles by row/column
-  const vectors = [];
+  const moveRow = (row) => {
+    const movedRow = [];
+    row.forEach((tile) => {
+      const previousTile = movedRow[movedRow.length - 1];
+      if (
+        previousTile
+        && previousTile.value === tile.value
+        && previousTile.previous.length < 2
+      ) {
+        previousTile.value *= 2;
+        previousTile.previous.push({ ...tile });
+      } else {
+        movedRow.push({
+          [mainAxis]: isReverse ? 3 - movedRow.length : movedRow.length,
+          [crossAxis]: tile[crossAxis],
+          value: tile.value,
+          previous: [{ ...tile }],
+        });
+      }
+    });
+    return movedRow;
+  };
+
+  const rows = [];
   for (let i = 0; i < 4; i += 1) {
-    const vector = tiles.filter(tile => tile[crossAxis] === i);
-    if (vector.length > 0) {
-      vectors.push(vector);
+    const row = tiles.filter(tile => tile[crossAxis] === i);
+    if (row.length > 0) {
+      row.sort((a, b) => (
+        isReverse ? b[mainAxis] - a[mainAxis] : a[mainAxis] - b[mainAxis]
+      ));
+      rows.push(row);
     }
   }
 
-  const after = [];
-  vectors.forEach((vector) => {
-    const copy = vector.slice();
-    // sort tiles so they are reduced in the right order
-    copy.sort((a, b) => (
-      reverse ? b[mainAxis] - a[mainAxis] : a[mainAxis] - b[mainAxis]
-    ));
-    const reduced = reduce(copy, vertical, reverse);
-    reduced.forEach(tile => after.push(tile));
+  const movedTiles = [];
+  rows.forEach((row) => {
+    const movedRow = moveRow(row);
+    movedRow.forEach(tile => movedTiles.push(tile));
   });
-  return after;
+  return movedTiles;
 };
 
-export { move, LEFT, RIGHT, UP, DOWN };
+export default move;

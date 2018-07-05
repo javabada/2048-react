@@ -1,17 +1,9 @@
 const didMove = tiles => (
-  !tiles.every((tile) => {
-    const {
-      x,
-      y,
-      value,
-      previous,
-    } = tile;
-    return (
-      x === previous[0].x
-      && y === previous[0].y
-      && value === previous[0].value
-    );
-  })
+  tiles.some(tile => (
+    tile.x !== tile.previous[0].x
+    || tile.y !== tile.previous[0].y
+    || tile.value !== tile.previous[0].value
+  ))
 );
 
 export default didMove;
