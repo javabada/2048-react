@@ -1,6 +1,6 @@
 import React from 'react';
 import './Grid.css';
-import Cell from './Cell';
+import Tile from './Tile';
 import add from './logic/add';
 import move from './logic/move';
 import didMove from './logic/didMove';
@@ -73,16 +73,17 @@ const Grid = class extends React.Component {
   }
 
   handleTouchEnd(e) {
+    const { touchStartPos } = this.state;
     const movement = {
-      x: e.changedTouches[0].clientX - this.state.touchStartPos.x,
-      y: e.changedTouches[0].clientY - this.state.touchStartPos.y,
+      dx: e.changedTouches[0].clientX - touchStartPos.x,
+      dy: e.changedTouches[0].clientY - touchStartPos.y,
     };
     this.setState({ touchStartPos: null });
     let direction;
-    if (Math.abs(movement.x) > Math.abs(movement.y)) {
-      direction = movement.x > 0 ? 'RIGHT' : 'LEFT';
-    } else if (Math.abs(movement.y) > Math.abs(movement.x)) {
-      direction = movement.y > 0 ? 'DOWN' : 'UP';
+    if (Math.abs(movement.dx) > Math.abs(movement.dy)) {
+      direction = movement.dx > 0 ? 'RIGHT' : 'LEFT';
+    } else if (Math.abs(movement.dy) > Math.abs(movement.dx)) {
+      direction = movement.dy > 0 ? 'DOWN' : 'UP';
     }
     if (direction) {
       this.moveTiles(direction);
@@ -98,30 +99,21 @@ const Grid = class extends React.Component {
     this.setState({ tiles });
   }
 
-  renderCell(x, y) {
-    const cell = this.state.tiles.find(tile => tile.x === x && tile.y === y);
-    return <Cell value={cell ? cell.value : null} />;
-  }
-
   render() {
+    const { tiles } = this.state;
     return (
       <div ref={this.ref} className="grid">
-        {this.renderCell(0, 0)}
-        {this.renderCell(1, 0)}
-        {this.renderCell(2, 0)}
-        {this.renderCell(3, 0)}
-        {this.renderCell(0, 1)}
-        {this.renderCell(1, 1)}
-        {this.renderCell(2, 1)}
-        {this.renderCell(3, 1)}
-        {this.renderCell(0, 2)}
-        {this.renderCell(1, 2)}
-        {this.renderCell(2, 2)}
-        {this.renderCell(3, 2)}
-        {this.renderCell(0, 3)}
-        {this.renderCell(1, 3)}
-        {this.renderCell(2, 3)}
-        {this.renderCell(3, 3)}
+        {[...Array(16).keys()].map(cell => (
+          <div key={cell} className="cell" />
+        ))}
+        {tiles.map(tile => (
+          <Tile
+            key={`${tile.x}${tile.y}`}
+            x={tile.x}
+            y={tile.y}
+            value={tile.value}
+          />
+        ))}
       </div>
     );
   }

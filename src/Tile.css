@@ -1,11 +1,10 @@
-.cell {
-  border-radius: .25rem;
+.tile {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 4rem;
   color: #666;
-  background-color: #bbb;
 }
 
 .value-2 {
@@ -33,31 +32,31 @@
 }
 
 .value-128 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   color: #fff;
   background-color: #ff5e5e;
 }
 
 .value-256 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   color: #fff;
   background-color: #ff54df;
 }
 
 .value-512 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   color: #fff;
   background-color: #4fb2ff;
 }
 
 .value-1024 {
-  font-size: 2.75rem;
+  font-size: 2.25rem;
   color: #fff;
   background-color: #55d662;
 }
 
 .value-2048 {
-  font-size: 2.75rem;
+  font-size: 2.25rem;
   color: #fff;
   background-color: #ffc90a;
 }

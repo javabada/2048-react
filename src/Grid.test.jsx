@@ -1,40 +1,35 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Grid from './Grid';
-import Cell from './Cell';
+import Tile from './Tile';
 
 describe('<Grid />', () => {
-  it('renders 16 <Cell /> components', () => {
+  it('renders 16 cell divs', () => {
     const wrapper = mount(<Grid />);
-    expect(wrapper.find(Cell).length).toBe(16);
+    expect(wrapper.find('div.cell').not('.tile').length).toBe(16);
     wrapper.unmount();
   });
 
-  it('initializes a new game with 2 tiles', () => {
+  it('starts game with 2 tiles', () => {
     const wrapper = mount(<Grid />);
-    expect(wrapper.state('tiles').length).toBe(2);
+    expect(wrapper.find(Tile).length).toBe(2);
     wrapper.unmount();
   });
 
-  it('passes a tile\'s value to the cell', () => {
+  it('passes down tile data as props', () => {
     const wrapper = mount(<Grid />);
     wrapper.setState({
-      tiles: [{ x: 0, y: 0, value: 8 }],
+      tiles: [{ x: 1, y: 2, value: 8 }],
     });
-    expect(wrapper.find(Cell).first().prop('value')).toBe(8);
-    wrapper.unmount();
-  });
-
-  it('passes null when cell is empty', () => {
-    const wrapper = mount(<Grid />);
-    wrapper.setState({ tiles: [] });
-    expect(wrapper.find(Cell).first().prop('value')).toBe(null);
+    expect(wrapper.find(Tile).prop('x')).toBe(1);
+    expect(wrapper.find(Tile).prop('y')).toBe(2);
+    expect(wrapper.find(Tile).prop('value')).toBe(8);
     wrapper.unmount();
   });
 });
 
 describe('event listener', () => {
-  it('calls handleKeyDown() on keydown event', () => {
+  it('calls handleKeyDown()', () => {
     const spy = jest.spyOn(Grid.prototype, 'handleKeyDown');
     const wrapper = mount(<Grid />);
     const e = new Event('keydown');
@@ -44,7 +39,7 @@ describe('event listener', () => {
     wrapper.unmount();
   });
 
-  it('calls handleTouchStart() on touchstart event', () => {
+  it('calls handleTouchStart()', () => {
     const spy = jest.spyOn(Grid.prototype, 'handleTouchStart');
     const wrapper = mount(<Grid />);
     const e = new Event('touchstart');
@@ -54,7 +49,7 @@ describe('event listener', () => {
     wrapper.unmount();
   });
 
-  it('calls handleTouchEnd() on touchend event', () => {
+  it('calls handleTouchEnd()', () => {
     const spy = jest.spyOn(Grid.prototype, 'handleTouchEnd');
     const wrapper = mount(<Grid />);
     const e = new Event('touchend');
@@ -65,7 +60,7 @@ describe('event listener', () => {
   });
 });
 
-describe('touch event handling', () => {
+describe('touch event', () => {
   it('stores touchstart position in state', () => {
     const wrapper = mount(<Grid />);
     const mockEvent = {
@@ -130,7 +125,8 @@ describe('moveTiles()', () => {
       tiles: [{ x: 3, y: 0, value: 4 }],
     });
     wrapper.instance().moveTiles('LEFT');
-    expect(wrapper.state('tiles').length).toBe(2);
+    wrapper.update();
+    expect(wrapper.find(Tile).length).toBe(2);
     wrapper.unmount();
   });
 
@@ -140,7 +136,8 @@ describe('moveTiles()', () => {
       tiles: [{ x: 0, y: 0, value: 4 }],
     });
     wrapper.instance().moveTiles('LEFT');
-    expect(wrapper.state('tiles').length).toBe(1);
+    wrapper.update();
+    expect(wrapper.find(Tile).length).toBe(1);
     wrapper.unmount();
   });
 });
