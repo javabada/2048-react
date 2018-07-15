@@ -1,9 +1,8 @@
 import React from 'react';
 import './Grid.css';
 import Tile from './Tile';
-import add from './logic/add';
-import move from './logic/move';
-import didMove from './logic/didMove';
+import initTiles from './helpers/initTiles';
+import moveTiles from './helpers/moveTiles';
 
 const Grid = class extends React.Component {
   constructor(props) {
@@ -18,11 +17,8 @@ const Grid = class extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
-    let tiles = [];
-    tiles = add(tiles);
-    tiles = add(tiles);
     this.state = {
-      tiles,
+      tiles: initTiles(),
       touchStartPos: null,
     };
   }
@@ -44,22 +40,22 @@ const Grid = class extends React.Component {
       case 'ArrowLeft':
       case 'a':
       case 'h':
-        this.moveTiles('LEFT');
+        this.moveTilesIfPossible('LEFT');
         break;
       case 'ArrowRight':
       case 'd':
       case 'l':
-        this.moveTiles('RIGHT');
+        this.moveTilesIfPossible('RIGHT');
         break;
       case 'ArrowUp':
       case 'w':
       case 'k':
-        this.moveTiles('UP');
+        this.moveTilesIfPossible('UP');
         break;
       case 'ArrowDown':
       case 's':
       case 'j':
-        this.moveTiles('DOWN');
+        this.moveTilesIfPossible('DOWN');
         break;
       default:
     }
@@ -86,16 +82,13 @@ const Grid = class extends React.Component {
       direction = movement.dy > 0 ? 'DOWN' : 'UP';
     }
     if (direction) {
-      this.moveTiles(direction);
+      this.moveTilesIfPossible(direction);
     }
   }
 
-  moveTiles(direction) {
+  moveTilesIfPossible(direction) {
     let { tiles } = this.state;
-    tiles = move(tiles, direction);
-    if (didMove(tiles)) {
-      tiles = add(tiles);
-    }
+    tiles = moveTiles(tiles, direction);
     this.setState({ tiles });
   }
 

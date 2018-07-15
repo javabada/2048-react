@@ -10,12 +10,6 @@ describe('<Grid />', () => {
     wrapper.unmount();
   });
 
-  it('starts game with 2 tiles', () => {
-    const wrapper = mount(<Grid />);
-    expect(wrapper.find(Tile).length).toBe(2);
-    wrapper.unmount();
-  });
-
   it('passes down tile data as props', () => {
     const wrapper = mount(<Grid />);
     wrapper.setState({
@@ -73,7 +67,7 @@ describe('touch event', () => {
   });
 
   it('resolves direction to left', () => {
-    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
+    const spy = jest.spyOn(Grid.prototype, 'moveTilesIfPossible');
     const wrapper = mount(<Grid />);
     wrapper.setState({
       touchStartPos: { x: 50, y: 50 },
@@ -88,7 +82,7 @@ describe('touch event', () => {
   });
 
   it('resolves direction to down', () => {
-    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
+    const spy = jest.spyOn(Grid.prototype, 'moveTilesIfPossible');
     const wrapper = mount(<Grid />);
     wrapper.setState({
       touchStartPos: { x: 50, y: 50 },
@@ -102,8 +96,8 @@ describe('touch event', () => {
     wrapper.unmount();
   });
 
-  it('does not move', () => {
-    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
+  it('direction is undefined', () => {
+    const spy = jest.spyOn(Grid.prototype, 'moveTilesIfPossible');
     const wrapper = mount(<Grid />);
     wrapper.setState({
       touchStartPos: { x: 50, y: 50 },
@@ -114,30 +108,6 @@ describe('touch event', () => {
     wrapper.instance().handleTouchEnd(mockEvent);
     expect(spy).not.toHaveBeenCalled();
     spy.mockClear();
-    wrapper.unmount();
-  });
-});
-
-describe('moveTiles()', () => {
-  it('moves and adds a new tile', () => {
-    const wrapper = mount(<Grid />);
-    wrapper.setState({
-      tiles: [{ x: 3, y: 0, value: 4 }],
-    });
-    wrapper.instance().moveTiles('LEFT');
-    wrapper.update();
-    expect(wrapper.find(Tile).length).toBe(2);
-    wrapper.unmount();
-  });
-
-  it('does not move nor add a new tile', () => {
-    const wrapper = mount(<Grid />);
-    wrapper.setState({
-      tiles: [{ x: 0, y: 0, value: 4 }],
-    });
-    wrapper.instance().moveTiles('LEFT');
-    wrapper.update();
-    expect(wrapper.find(Tile).length).toBe(1);
     wrapper.unmount();
   });
 });
