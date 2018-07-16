@@ -1,7 +1,7 @@
 /* eslint-disable object-property-newline */
-import move from './move';
+import moveTiles from './moveTiles';
 
-describe('move left', () => {
+describe('move tiles left', () => {
   it('moves one tile left', () => {
     const tiles = [
       { x: 3, y: 0, value: 2 },
@@ -14,7 +14,7 @@ describe('move left', () => {
         ],
       },
     ];
-    const result = move(tiles, 'LEFT');
+    const result = moveTiles(tiles, 'LEFT');
     expect(result).toEqual(expected);
   });
 
@@ -37,7 +37,7 @@ describe('move left', () => {
         ],
       },
     ];
-    const result = move(tiles, 'LEFT');
+    const result = moveTiles(tiles, 'LEFT');
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });
@@ -61,7 +61,7 @@ describe('move left', () => {
         ],
       },
     ];
-    const result = move(tiles, 'LEFT');
+    const result = moveTiles(tiles, 'LEFT');
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });
@@ -80,7 +80,7 @@ describe('move left', () => {
         ],
       },
     ];
-    const result = move(tiles, 'LEFT');
+    const result = moveTiles(tiles, 'LEFT');
     expect(result).toEqual(expected);
   });
 
@@ -105,13 +105,13 @@ describe('move left', () => {
         ],
       },
     ];
-    const result = move(tiles, 'LEFT');
+    const result = moveTiles(tiles, 'LEFT');
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });
 });
 
-describe('move right', () => {
+describe('move tiles right', () => {
   it('moves tiles right correctly', () => {
     const tiles = [
       { x: 0, y: 0, value: 2 },
@@ -140,13 +140,13 @@ describe('move right', () => {
         ],
       },
     ];
-    const result = move(tiles, 'RIGHT');
+    const result = moveTiles(tiles, 'RIGHT');
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });
 });
 
-describe('move up', () => {
+describe('move tiles up', () => {
   it('moves tiles up correctly', () => {
     const tiles = [
       { x: 0, y: 0, value: 2 },
@@ -175,13 +175,13 @@ describe('move up', () => {
         ],
       },
     ];
-    const result = move(tiles, 'UP');
+    const result = moveTiles(tiles, 'UP');
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });
 });
 
-describe('move down', () => {
+describe('move tiles down', () => {
   it('moves tiles down correctly', () => {
     const tiles = [
       { x: 1, y: 0, value: 2 },
@@ -210,7 +210,7 @@ describe('move down', () => {
         ],
       },
     ];
-    const result = move(tiles, 'DOWN');
+    const result = moveTiles(tiles, 'DOWN');
     expect(result).toEqual(expect.arrayContaining(expected));
     expect(result.length).toBe(expected.length);
   });

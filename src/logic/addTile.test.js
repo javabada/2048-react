@@ -1,9 +1,9 @@
-import add from './add';
+import addTile from './addTile';
 
-describe('add', () => {
+describe('add tile', () => {
   it('adds a new tile', () => {
     const tiles = [];
-    const result = add(tiles);
+    const result = addTile(tiles);
     expect(result.length).toBe(1);
   });
 
@@ -25,7 +25,7 @@ describe('add', () => {
       { x: 2, y: 3, value: 2 },
       { x: 3, y: 3, value: 2 },
     ];
-    const result = add(tiles);
+    const result = addTile(tiles);
     expect(result.some(tile => tile.x === 1 && tile.y === 1)).toBe(true);
   });
 });

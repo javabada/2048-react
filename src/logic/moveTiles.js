@@ -1,4 +1,4 @@
-const move = (tiles, direction) => {
+const moveTiles = (tiles, direction) => {
   const mainAxis = direction === 'UP' || direction === 'DOWN' ? 'y' : 'x';
   const crossAxis = mainAxis === 'x' ? 'y' : 'x';
   const isReverse = direction === 'RIGHT' || direction === 'DOWN';
@@ -45,4 +45,4 @@ const move = (tiles, direction) => {
   return movedTiles;
 };
 
-export default move;
+export default moveTiles;

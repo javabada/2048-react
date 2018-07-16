@@ -1,4 +1,4 @@
-const add = (tiles) => {
+const addTile = (tiles) => {
   const emptyCells = [];
   for (let x = 0; x < 4; x += 1) {
     for (let y = 0; y < 4; y += 1) {
@@ -12,4 +12,4 @@ const add = (tiles) => {
   return [...tiles, { ...cell, value }];
 };
 
-export default add;
+export default addTile;

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Grid.css';
 import Tile from './Tile';
-import initTiles from './helpers/initTiles';
-import moveTiles from './helpers/moveTiles';
+import initTiles from './logic/initTiles';
+import doMoveTiles from './logic/doMoveTiles';
 
 const Grid = class extends React.Component {
   constructor(props) {
@@ -88,7 +88,7 @@ const Grid = class extends React.Component {
 
   moveTilesIfPossible(direction) {
     let { tiles } = this.state;
-    tiles = moveTiles(tiles, direction);
+    tiles = doMoveTiles(tiles, direction);
     this.setState({ tiles });
   }
 

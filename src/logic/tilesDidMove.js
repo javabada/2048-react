@@ -1,4 +1,4 @@
-const didMove = tiles => (
+const tilesDidMove = tiles => (
   tiles.some(tile => (
     tile.x !== tile.previous[0].x
     || tile.y !== tile.previous[0].y
@@ -6,4 +6,4 @@ const didMove = tiles => (
   ))
 );
 
-export default didMove;
+export default tilesDidMove;

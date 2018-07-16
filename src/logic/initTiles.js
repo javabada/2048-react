@@ -1,9 +1,9 @@
-import add from '../logic/add';
+import addTile from './addTile';
 
 const initTiles = () => {
   let tiles = [];
-  tiles = add(tiles);
-  tiles = add(tiles);
+  tiles = addTile(tiles);
+  tiles = addTile(tiles);
   return tiles;
 };
 
