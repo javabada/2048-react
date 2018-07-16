@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Tile.css';
+import getTilePosition from './helpers/getTilePosition';
 
 const propTypes = {
   x: PropTypes.number.isRequired,
@@ -9,14 +10,7 @@ const propTypes = {
 };
 
 const Tile = ({ x, y, value }) => (
-  <div
-    className={`cell tile value-${value}`}
-    style={{
-      // position: grid padding + cells + grid gaps
-      left: `${1 + 6 * x + x}rem`,
-      top: `${1 + 6 * y + y}rem`,
-    }}
-  >
+  <div className={`cell tile value-${value}`} style={getTilePosition(x, y)}>
     {value}
   </div>
 );
