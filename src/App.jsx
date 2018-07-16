@@ -1,6 +1,6 @@
 import React from 'react';
-import Grid from './Grid';
 import './App.css';
+import Grid from './Grid';
 
 const App = () => (
   <div className="app">

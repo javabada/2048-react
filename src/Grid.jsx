@@ -7,12 +7,10 @@ import doMoveTiles from './logic/doMoveTiles';
 const Grid = class extends React.Component {
   constructor(props) {
     super(props);
-    /**
-     * Create a ref to grid to add native touch event listeners. This is needed
-     * as Event.preventDefault() does not work with React's SyntheticEvent for
-     * touch events. Further information on why can be found here:
-     * https://developers.google.com/web/updates/2017/01/scrolling-intervention
-     */
+    // Create a ref to grid to add native touch event listeners. This is needed
+    // as Event.preventDefault() does not work with React's SyntheticEvent for
+    // touch events. Further information on why can be found here:
+    // https://developers.google.com/web/updates/2017/01/scrolling-intervention
     this.ref = React.createRef();
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleTouchStart = this.handleTouchStart.bind(this);
@@ -40,22 +38,22 @@ const Grid = class extends React.Component {
       case 'ArrowLeft':
       case 'a':
       case 'h':
-        this.moveTilesIfPossible('LEFT');
+        this.moveTiles('LEFT');
         break;
       case 'ArrowRight':
       case 'd':
       case 'l':
-        this.moveTilesIfPossible('RIGHT');
+        this.moveTiles('RIGHT');
         break;
       case 'ArrowUp':
       case 'w':
       case 'k':
-        this.moveTilesIfPossible('UP');
+        this.moveTiles('UP');
         break;
       case 'ArrowDown':
       case 's':
       case 'j':
-        this.moveTilesIfPossible('DOWN');
+        this.moveTiles('DOWN');
         break;
       default:
     }
@@ -82,14 +80,13 @@ const Grid = class extends React.Component {
       direction = movement.dy > 0 ? 'DOWN' : 'UP';
     }
     if (direction) {
-      this.moveTilesIfPossible(direction);
+      this.moveTiles(direction);
     }
   }
 
-  moveTilesIfPossible(direction) {
-    let { tiles } = this.state;
-    tiles = doMoveTiles(tiles, direction);
-    this.setState({ tiles });
+  moveTiles(direction) {
+    const { tiles } = this.state;
+    this.setState({ tiles: doMoveTiles(tiles, direction) });
   }
 
   render() {

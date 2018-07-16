@@ -1,3 +1,4 @@
+// Adds a new tile in an empty cell and returns the new list of tiles.
 const addTile = (tiles) => {
   const emptyCells = [];
   for (let x = 0; x < 4; x += 1) {

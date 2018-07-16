@@ -67,7 +67,7 @@ describe('touch event', () => {
   });
 
   it('resolves direction to left', () => {
-    const spy = jest.spyOn(Grid.prototype, 'moveTilesIfPossible');
+    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
     const wrapper = mount(<Grid />);
     wrapper.setState({
       touchStartPos: { x: 50, y: 50 },
@@ -82,7 +82,7 @@ describe('touch event', () => {
   });
 
   it('resolves direction to down', () => {
-    const spy = jest.spyOn(Grid.prototype, 'moveTilesIfPossible');
+    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
     const wrapper = mount(<Grid />);
     wrapper.setState({
       touchStartPos: { x: 50, y: 50 },
@@ -97,7 +97,7 @@ describe('touch event', () => {
   });
 
   it('direction is undefined', () => {
-    const spy = jest.spyOn(Grid.prototype, 'moveTilesIfPossible');
+    const spy = jest.spyOn(Grid.prototype, 'moveTiles');
     const wrapper = mount(<Grid />);
     wrapper.setState({
       touchStartPos: { x: 50, y: 50 },
