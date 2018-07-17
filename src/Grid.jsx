@@ -102,6 +102,7 @@ const Grid = class extends React.Component {
             x={tile.x}
             y={tile.y}
             value={tile.value}
+            previous={tile.previous}
           />
         ))}
       </div>
