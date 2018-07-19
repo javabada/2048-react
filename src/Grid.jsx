@@ -97,13 +97,7 @@ const Grid = class extends React.Component {
           <div key={cell} className="cell" />
         ))}
         {tiles.map(tile => (
-          <Tile
-            key={`${tile.x}${tile.y}`}
-            x={tile.x}
-            y={tile.y}
-            value={tile.value}
-            previous={tile.previous}
-          />
+          <Tile key={`${tile.x}${tile.y}`} {...tile} />
         ))}
       </div>
     );
