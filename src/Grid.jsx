@@ -1,6 +1,6 @@
 import React from 'react';
 import './Grid.css';
-import Tile from './Tile';
+import TileContainer from './TileContainer';
 import initTiles from './logic/initTiles';
 import doMoveTiles from './logic/doMoveTiles';
 
@@ -97,7 +97,7 @@ const Grid = class extends React.Component {
           <div key={cell} className="cell" />
         ))}
         {tiles.map(tile => (
-          <Tile key={`${tile.x}${tile.y}`} {...tile} />
+          <TileContainer key={`${tile.x}${tile.y}`} {...tile} />
         ))}
       </div>
     );

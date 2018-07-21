@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Grid from './Grid';
-import Tile from './Tile';
+import TileContainer from './TileContainer';
 
 describe('<Grid />', () => {
   it('renders 16 cell divs', () => {
@@ -10,14 +10,15 @@ describe('<Grid />', () => {
     wrapper.unmount();
   });
 
-  it('passes down tile data as props', () => {
+  it('renders TileContainers based on tiles', () => {
     const wrapper = mount(<Grid />);
     wrapper.setState({
-      tiles: [{ x: 1, y: 2, value: 8 }],
+      tiles: [
+        { x: 1, y: 2, value: 8 },
+        { x: 3, y: 2, value: 4 },
+      ],
     });
-    expect(wrapper.find(Tile).prop('x')).toBe(1);
-    expect(wrapper.find(Tile).prop('y')).toBe(2);
-    expect(wrapper.find(Tile).prop('value')).toBe(8);
+    expect(wrapper.find(TileContainer).length).toBe(2);
     wrapper.unmount();
   });
 });
