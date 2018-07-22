@@ -9,20 +9,21 @@ const moveTiles = (tiles, direction) => {
   const moveRow = (row) => {
     const movedRow = [];
     row.forEach((tile) => {
+      const { x, y, value } = tile;
       const previousTile = movedRow[movedRow.length - 1];
       if (
         previousTile
-        && previousTile.value === tile.value
+        && previousTile.value === value
         && previousTile.previous.length < 2 // is not a merged tile
       ) {
         previousTile.value *= 2;
-        previousTile.previous.push({ ...tile });
+        previousTile.previous.push({ x, y, value });
       } else {
         movedRow.push({
           [mainAxis]: isReverse ? 3 - movedRow.length : movedRow.length,
           [crossAxis]: tile[crossAxis],
-          value: tile.value,
-          previous: [{ ...tile }],
+          value,
+          previous: [{ x, y, value }],
         });
       }
     });
