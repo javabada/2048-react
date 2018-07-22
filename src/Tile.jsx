@@ -7,17 +7,16 @@ const propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
-  previous: PropTypes.arrayOf(
-    PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-      value: PropTypes.number.isRequired,
-    }).isRequired,
-  ),
+  previousX: PropTypes.number,
+  previousY: PropTypes.number,
+  animation: PropTypes.string.isRequired,
+  onMerge: PropTypes.func,
 };
 
 const defaultProps = {
-  previous: null,
+  previousX: null,
+  previousY: null,
+  onMerge: null,
 };
 
 const Tile = class extends React.Component {
