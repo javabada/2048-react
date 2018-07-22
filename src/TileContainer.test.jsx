@@ -59,13 +59,13 @@ describe('<TileContainer />', () => {
 
     it('renders 1 tile at end', () => {
       const wrapper = shallow(<TileContainer {...tile} />);
-      wrapper.setState({ animationEnd: true });
+      wrapper.setState({ showMerged: true });
       expect(wrapper.find(Tile).length).toBe(1);
     });
 
     it('animation is mergeEnd at end', () => {
       const wrapper = shallow(<TileContainer {...tile} />);
-      wrapper.setState({ animationEnd: true });
+      wrapper.setState({ showMerged: true });
       expect(wrapper.find(Tile).prop('animation')).toBe('mergeEnd');
     });
   });

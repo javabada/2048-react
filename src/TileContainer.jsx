@@ -22,14 +22,14 @@ const defaultProps = {
 const TileContainer = class extends React.Component {
   constructor(props) {
     super(props);
-    this.onAnimationEnd = this.onAnimationEnd.bind(this);
+    this.handleShowMerged = this.handleShowMerged.bind(this);
     this.state = {
-      animationEnd: false,
+      showMerged: false,
     };
   }
 
-  onAnimationEnd() {
-    this.setState({ animationEnd: true });
+  handleShowMerged() {
+    this.setState({ showMerged: true });
   }
 
   render() {
@@ -39,43 +39,43 @@ const TileContainer = class extends React.Component {
       value,
       previous,
     } = this.props;
-    const { animationEnd } = this.state;
+    const { showMerged } = this.state;
 
     switch (previous.length) {
       case 0:
-        return <Tile animation="add" x={x} y={y} value={value} />;
+        return <Tile x={x} y={y} value={value} animation="add" />;
       case 1:
         return (
           <Tile
-            animation="move"
             x={x}
             y={y}
             value={value}
             previousX={previous[0].x}
             previousY={previous[0].y}
+            animation="move"
           />
         );
       case 2:
-        return animationEnd
-          ? <Tile animation="mergeEnd" x={x} y={y} value={value} />
+        return showMerged
+          ? <Tile x={x} y={y} value={value} animation="mergeEnd" />
           : (
             <React.Fragment>
               <Tile
-                animation="mergeStart"
-                onAnimationEnd={this.handleAnimationEnd}
                 x={x}
                 y={y}
                 value={previous[0].value}
                 previousX={previous[0].x}
                 previousY={previous[0].y}
+                animation="mergeStart"
+                onMerge={this.handleShowMerged}
               />
               <Tile
-                animation="mergeStart"
                 x={x}
                 y={y}
                 value={previous[1].value}
                 previousX={previous[1].x}
                 previousY={previous[1].y}
+                animation="mergeStart"
               />
             </React.Fragment>
           );
