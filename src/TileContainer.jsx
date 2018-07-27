@@ -56,11 +56,13 @@ const TileContainer = class extends React.Component {
           />
         );
       case 2:
+        // keys used to mount a new Tile on merge to enable animation
         return showMerged
-          ? <Tile x={x} y={y} value={value} animation="mergeEnd" />
+          ? <Tile key={2} x={x} y={y} value={value} animation="mergeEnd" />
           : (
             <React.Fragment>
               <Tile
+                key={0}
                 x={x}
                 y={y}
                 value={previous[0].value}
@@ -70,6 +72,7 @@ const TileContainer = class extends React.Component {
                 onMerge={this.handleShowMerged}
               />
               <Tile
+                key={1}
                 x={x}
                 y={y}
                 value={previous[1].value}

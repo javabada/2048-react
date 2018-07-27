@@ -17,6 +17,7 @@ const Grid = class extends React.Component {
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.state = {
       tiles: initTiles(),
+      moveCount: 0, // a counter to set unique TileContainer keys
       touchStartPos: null,
     };
   }
@@ -85,19 +86,28 @@ const Grid = class extends React.Component {
   }
 
   moveTiles(direction) {
-    const { tiles } = this.state;
-    this.setState({ tiles: doMoveTiles(tiles, direction) });
+    const { tiles, moveCount } = this.state;
+    const newTiles = doMoveTiles(tiles, direction);
+    // check reference equality as doMoveTiles() return the original tiles if
+    // tiles didn't move
+    if (newTiles !== tiles) {
+      this.setState({
+        tiles: newTiles,
+        moveCount: moveCount + 1,
+      });
+    }
   }
 
   render() {
-    const { tiles } = this.state;
+    const { tiles, moveCount } = this.state;
     return (
       <div ref={this.ref} className="grid">
         {[...Array(16).keys()].map(cell => (
           <div key={cell} className="cell" />
         ))}
         {tiles.map(tile => (
-          <TileContainer key={`${tile.x}${tile.y}`} {...tile} />
+          // set unique keys on every update to mount new tiles for animation
+          <TileContainer key={`${moveCount}-${tile.x}-${tile.y}`} {...tile} />
         ))}
       </div>
     );
