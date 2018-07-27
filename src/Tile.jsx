@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import 'web-animations-js'; // web animations api polyfill
 import './Tile.css';
 import getTilePosition from './helpers/getTilePosition';
 
